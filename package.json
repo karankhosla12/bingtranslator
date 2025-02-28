@@ -1,6 +1,7 @@
 {
   "name": "country-translator",
   "version": "1.0.0",
+  "type": "module"
   "description": "A website to translate country names into different languages.",
   "main": "server.js",
   "scripts": {
