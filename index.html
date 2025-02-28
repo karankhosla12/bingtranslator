@@ -5,61 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Country Translator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        textarea, select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-        .output {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        textarea, select, button { width: 80%; margin: 10px 0; padding: 10px; }
+        .result { margin-top: 20px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Country Translator</h1>
-        <textarea id="countryList" rows="5" placeholder="Enter country names, one per line"></textarea>
-        <textarea id="language" rows="5" placeholder="Enter ISO Languate ID , ex. Thai = th line"></textarea>
-        <button id="submitBtn">Translate</button>
-        <div class="output" id="output"></div>
-    </div>
+
+    <h2>Country Translator</h2>
+    <textarea id="countries" rows="5" placeholder="Enter country names, one per line..."></textarea>
+    
+    <select id="language">
+        <option value="ar">Arabic</option>
+        <option value="fr">French</option>
+        <option value="es">Spanish</option>
+    </select>
+    
+    <button onclick="translateCountries()">Translate</button>
+    
+    <div id="results" class="result"></div>
 
     <script>
-        document.getElementById('submitBtn').addEventListener('click', async () => {
-            const countryList = document.getElementById('countryList').value.split('\n').filter(Boolean);
-            const language = document.getElementById('language').value;
-            const output = document.getElementById('output');
+        async function translateCountries() {
+            const countries = document.getElementById("countries").value.trim().split("\n").filter(c => c);
+            const language = document.getElementById("language").value;
+            const resultsDiv = document.getElementById("results");
 
-            output.innerHTML = 'Translating...';
+            resultsDiv.innerHTML = "Translating...";
+            
+            let translatedResults = "";
+            
+            for (const country of countries) {
+                try {
+                    const response = await fetch("https://your-render-server.com/translate", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ country, language })
+                    });
 
-            try {
-                const response = await fetch('/translate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ countryList, language }),
-                });
-
-                const data = await response.json();
-                output.innerHTML = data.translatedCountries.join('<br>');
-            } catch (error) {
-                output.innerHTML = 'Error occurred while translating.';
-                console.error(error);
+                    const data = await response.json();
+                    translatedResults += `<p><strong>${country}:</strong> ${data.translated}</p>`;
+                    resultsDiv.innerHTML = translatedResults;
+                } catch (error) {
+                    console.error("Translation failed for:", country, error);
+                }
             }
-        });
+        }
     </script>
+
 </body>
 </html>
