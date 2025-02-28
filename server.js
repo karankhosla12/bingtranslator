@@ -19,7 +19,7 @@ app.post("/translate", async (req, res) => {
     const extractResult = await fireCrawl.extract(
       [`https://bing.com/translator/?to=${language}&text=${encodeURIComponent(country)}`],
       {
-        prompt: `extract the country name in ${language} casual`,
+        prompt: `extract the country name in destination language with casual tone`,
       }
     );
 
