@@ -1,8 +1,14 @@
 const express = require('express');
+const cors = require('cors'); // Import the cors middleware
 const FireCrawlApp = require('@mendable/firecrawl-js');
+
 const app = express();
 const port = 3000;
 
+// Enable CORS for all routes
+app.use(cors());
+
+// Parse JSON request bodies
 app.use(express.json());
 
 const firecrawlApp = new FireCrawlApp({ apiKey: "fc-dd2e9d2d73994c7c8a00523245caa2e8" });
