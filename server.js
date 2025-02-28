@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import firecrawl from '@mendable/firecrawl-js';
+import { FireCrawlApp } from '@mendable/firecrawl-js'; // Import correctly
 
 const app = express();
 const port = 3000;
@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 // Initialize FireCrawlApp correctly
-const firecrawlApp = new firecrawl.default({ apiKey: "fc-dd2e9d2d73994c7c8a00523245caa2e8" });
+const firecrawlApp = new FireCrawlApp({ apiKey: "fc-dd2e9d2d73994c7c8a00523245caa2e8" });
 
 app.post('/translate', async (req, res) => {
     const { countryList, language } = req.body;
