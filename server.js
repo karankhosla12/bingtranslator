@@ -1,17 +1,15 @@
 const express = require('express');
-const cors = require('cors'); // Import the cors middleware
-const firecrawl = require('@mendable/firecrawl-js');
-console.log(firecrawl); // Check what is actually exported
+const cors = require('cors'); 
+const firecrawl = require('@mendable/firecrawl-js'); // Import the package
+
 const app = express();
 const port = 3000;
 
-// Enable CORS for all origins
 app.use(cors());
-
-// Parse JSON request bodies
 app.use(express.json());
 
-const firecrawlApp = new FireCrawlApp({ apiKey: "fc-dd2e9d2d73994c7c8a00523245caa2e8" });
+// Initialize FireCrawlApp correctly
+const firecrawlApp = new firecrawl.default({ apiKey: "fc-dd2e9d2d73994c7c8a00523245caa2e8" });
 
 app.post('/translate', async (req, res) => {
     const { countryList, language } = req.body;
