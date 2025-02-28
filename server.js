@@ -5,7 +5,7 @@ const FireCrawlApp = require('@mendable/firecrawl-js');
 const app = express();
 const port = 3000;
 
-// Enable CORS for all routes
+// Enable CORS for all origins
 app.use(cors());
 
 // Parse JSON request bodies
