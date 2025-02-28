@@ -1,0 +1,17 @@
+{
+  "name": "country-translator",
+  "version": "1.0.0",
+  "description": "A website to translate country names into different languages.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "@mendable/firecrawl-js": "^1.0.0"
+  }
+}
