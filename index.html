@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        textarea, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Country Translator</h1>
+        <textarea id="countryList" rows="5" placeholder="Enter country names, one per line"></textarea>
+        <textarea id="language" rows="5" placeholder="Enter ISO Languate ID , ex. Thai = th line"></textarea>
+        <button id="submitBtn">Translate</button>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', async () => {
+            const countryList = document.getElementById('countryList').value.split('\n').filter(Boolean);
+            const language = document.getElementById('language').value;
+            const output = document.getElementById('output');
+
+            output.innerHTML = 'Translating...';
+
+            try {
+                const response = await fetch('/translate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ countryList, language }),
+                });
+
+                const data = await response.json();
+                output.innerHTML = data.translatedCountries.join('<br>');
+            } catch (error) {
+                output.innerHTML = 'Error occurred while translating.';
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
