@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors'); 
-const firecrawl = require('@mendable/firecrawl-js'); // Import the package
+import express from 'express';
+import cors from 'cors';
+import firecrawl from '@mendable/firecrawl-js';
 
 const app = express();
 const port = 3000;
