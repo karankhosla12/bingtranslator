@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors'); // Import the cors middleware
-const FireCrawlApp = require('@mendable/firecrawl-js');
-
+const firecrawl = require('@mendable/firecrawl-js');
+console.log(firecrawl); // Check what is actually exported
 const app = express();
 const port = 3000;
 
