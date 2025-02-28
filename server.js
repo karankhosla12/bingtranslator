@@ -23,9 +23,8 @@ app.post("/translate", async (req, res) => {
       }
     );
 
-    console.log("Full Extract Result:", extractResult); // Log full response for debugging
-
-    res.json({ rawOutput: extractResult }); // Send full raw output
+    const translatedText = extractResult?.data?.countryNameCasual || "Translation not available";
+    res.json({ translated: translatedText });
   } catch (error) {
     console.error("Translation error:", error);
     res.status(500).json({ error: "Failed to translate" });
