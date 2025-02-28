@@ -23,7 +23,7 @@ app.post("/translate", async (req, res) => {
       }
     );
 
-    const translatedText = extractResult?.results?.[0]?.text || "Translation not found";
+    const translatedText = extractResult.results;
     res.json({ translated: translatedText });
   } catch (error) {
     console.error("Translation error:", error);
